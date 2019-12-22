@@ -41,7 +41,8 @@ class DBDriver {
             "author" => $row['author'],
             "content" => $row['content'],
             "title" => $row['title'],
-            "date" => $row['date']
+            "date" => $row['date'],
+            "slug" => $row['slug']
         );
     }
 

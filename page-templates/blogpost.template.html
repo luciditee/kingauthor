@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example Blogpost Template</title>
+        <title>{KA:PostTitle} - Example Blogpost Template</title>
     </head>
     <body>
         <h1>Sample Blog Page</h1>
@@ -9,6 +9,10 @@
         <h3>By {KA:PostAuthor} - Posted {KA:PostTimestamp}</h3>
         <div id="blogpost">
             {KA:PostContent}
+        </div>
+        <hr />
+        <div id="tags">
+            Posted in: {KA:PostCategory}
         </div>
     </body>
 </html>

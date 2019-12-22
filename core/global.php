@@ -16,7 +16,11 @@
 
 require('lockout.php');
 require('log.php');
+
+log_append("KingAuthor booting up");
+
 require('./conf/config.php');
 require('./core/db.driver.php');
+require('./core/template.driver.php');
 
 ?>
