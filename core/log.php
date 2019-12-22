@@ -15,8 +15,19 @@
  */
 
 require('lockout.php');
-require('log.php');
-require('./conf/config.php');
-require('./core/db.driver.php');
+
+$log = "";
+
+function log_append($msg) {
+    global $log; // god why
+    $log .= "* " . $msg . "\n";
+}
+
+function log_spew($nocomment = FALSE) {
+    global $log; // just end me
+    if (!$nocomment) echo "<!--\n";
+    echo $log;
+    if (!$nocomment) echo "-->\n";
+}
 
 ?>

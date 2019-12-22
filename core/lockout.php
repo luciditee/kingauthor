@@ -19,6 +19,4 @@ if (!defined('LOCKOUT')) {
     die("Unauthorized usage detected");
 }
 
-print("Now in lockout");
-
 ?>

@@ -14,9 +14,12 @@
  * Please don't redistribute this code.
  */
 
-print("now in index");
-
 define('LOCKOUT', 1);
 require('./core/global.php');
+
+$post = $db->getLastNPosts(1);
+log_append(print_r($post,true));
+
+log_spew();
 
 ?>
