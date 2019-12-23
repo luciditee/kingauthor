@@ -19,8 +19,8 @@ require('./core/global.php');
 
 $post = $db->getLastNPosts(1);
 log_append(print_r($post,true));
-log_append($templ->parseUniversal($post[0], $templ->blogtemp));
-
 log_spew();
+
+echo $templ->parseUniversal($post[0], $templ->blogtemp);
 
 ?>
