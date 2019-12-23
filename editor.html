@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KingAuthor Static Content Blog</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./core/deps/simplemde.min.css">
+        <script src="./core/deps/simplemde.min.js"></script>
+    </head>
+    <body>
+        <h1>Static Content Editor</h1>
+        <div id="main-content">
+            <h2>Create New Post</h2>
+            <div id="content-inner">
+                <textarea id="md-editor" name="md-editor"> </textarea>
+            </div>
+        </div>
+        <script>
+            var simplemde = new SimpleMDE({ element: document.getElementById("md-editor") });
+        </script>
+    </body>
+</html>
