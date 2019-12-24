@@ -42,7 +42,8 @@ class DBDriver {
             "content" => $row['content'],
             "title" => $row['title'],
             "date" => $row['date'],
-            "slug" => $row['slug']
+            "slug" => $row['slug'],
+            "hidden" => ($row['hidden'] == 0 ? false : true)
         );
     }
 
@@ -58,6 +59,21 @@ class DBDriver {
     public function getLastNPosts($count) {
         // run query
         $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' ORDER BY id DESC LIMIT ' . $count);
+
+        // return as associative array
+        $ret = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($ret, $this->buildPost($row));
+        }
+
+        return $ret;
+    }
+
+    public function getAllPosts() {
+        // run query
+        $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' ORDER BY id DESC');
+
+        log_spew();
 
         // return as associative array
         $ret = [];
