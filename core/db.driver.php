@@ -73,8 +73,6 @@ class DBDriver {
         // run query
         $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' ORDER BY id DESC');
 
-        log_spew();
-
         // return as associative array
         $ret = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

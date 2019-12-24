@@ -1,18 +1,27 @@
 <?php
+
+    /*
+    * KingAuthor -- a shitty static template-based blog
+    * system, written for no reason other than "why not."
+    * 
+    * This system is proprietary and not really meant for
+    * external use. If you've gained access to this code,
+    * congratulations, let me know how so I can unfuck my
+    * security schema.
+    * 
+    * Copyright 2019-2020 William Preston / Turnip Collective
+    * 
+    * Please don't redistribute this code.
+    */
+
     define('LOCKOUT', 1);
     require('./core/global.php');
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>KingAuthor Static Content Blog</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="./core/deps/simplemde.min.css">
-        <link rel="stylesheet" type="text/css" href="./css/backend.css">
-        <link href="./core/deps/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
-        <script src="./core/deps/simplemde.min.js"></script>
-        <script src="./core/deps/jquery.js"></script>
-        <script src="./core/deps/jquery.ui.min.js"></script>
+        <title>Post Editor</title>
+        <?php include('./templates/head.template.php'); ?>
     </head>
     <body>
         <h1>Static Content Editor</h1>
@@ -100,7 +109,7 @@
             </div>
         </div>
         
-        <p id="copyright">Copyright &copy; 2019-2020 by Will Preston for Turnip Collective, LLC - All rights reserved. - Powered by KingAuthor static content manager - please don't redistribute this proprietary application, that wouldn't be very nice. If you have been given access to use this application, it is covered by your non-disclosure agreement. Failure to adhere to the terms of your NDA may leave you vulnerable to prosecution.</p>
+        <?php include('./templates/copyright.template.php'); ?>
 
         <script src="./core/deps/js/jquery.multi-select.js" type="text/javascript"></script>
         <script>
