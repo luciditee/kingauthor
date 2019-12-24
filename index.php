@@ -4,14 +4,10 @@
  * KingAuthor -- a shitty static template-based blog
  * system, written for no reason other than "why not."
  * 
- * This system is proprietary and not really meant for
- * external use. If you've gained access to this code,
- * congratulations, let me know how so I can unfuck my
- * security schema.
+ * This system is licensed under the MIT license.
  * 
  * Copyright 2019-2020 William Preston / Turnip Collective
  * 
- * Please don't redistribute this code.
  */
 
 define('LOCKOUT', 1);
@@ -36,7 +32,7 @@ require('./core/global.php');
                     KingArthur is meant to run sandboxed or on a local dev environment. You need to enable JavaScript for full functionality. Sorry.
                 </noscript>
                 <div id="dash-accordion">
-                    <h3 class="mouseover">Blog Overview</h3>
+                    <h3 class="mouseover">Posts</h3>
                     <div class="accordion-section">
                         <div class="flexbuttons">
                             <button class="dash" type="button" onclick="newPostButton()">New Post</button>
@@ -75,6 +71,11 @@ require('./core/global.php');
                                 }
                             ?>
                         </ul>
+                    </div>
+
+                    <h3 class="mouseover">Pages</h3>
+                    <div class="accordion-section">
+                        Page handling is slated to go here.
                     </div>
                     
                     <h3 class="mouseover">Rebuild Content</h3>
