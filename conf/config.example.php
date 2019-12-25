@@ -30,7 +30,7 @@ $_KA_CATEGORIES = array(
 );
 define('KA_DEFAULT_AUTHOR', 'Arthur McAuthorpants');
 define('KA_DEFAULT_CATEGORY', 0);
-define('KA_DATESTAMP_FMT', 'g:ia \o\n T j F Y');
+define('KA_DATESTAMP_FMT', 'g:ia T \o\n j F Y');
 define('KA_LINK_ROOT', '//somewebsite.com/blog/');
 
 
