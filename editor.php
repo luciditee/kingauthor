@@ -26,7 +26,7 @@
             if ($_GET['delete'] == 'true') {
                 $r = $db->deleteSpecificPost($articleIndex);
                 log_append("Result: " . print_r($r, true));
-                header('Location: index.php?msg=deleted&which=' . $articleIndex . '&result=' . $r);
+                header('Location: index.php?msg=deleted&which=' . $articleIndex);
                 exit;
             }
         }

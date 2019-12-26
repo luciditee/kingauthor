@@ -13,6 +13,8 @@
 define('LOCKOUT', 1);
 require('./core/global.php');
 
+session_start();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,6 +33,28 @@ require('./core/global.php');
                 <noscript>
                     KingArthur is meant to run sandboxed or on a local dev environment. You need to enable JavaScript for full functionality. Sorry.
                 </noscript>
+                <?php
+                    if (isset($_GET['msg'])) {
+                        ?>      
+                        <div id="result-message">
+                            <h3>Result</h3>
+                            <pre>
+<?php // because whitespace shows up in preformatted text
+                            switch ($_GET['msg']) {
+                                case "buildresult":
+                                    if (isset($_SESSION['log'])) {
+                                        print($_SESSION['log']);
+                                    } else {
+                                        print("No log available");
+                                    }
+                                    break;
+                            }
+?>
+                            </pre>
+                        </div>
+                        <?php
+                    }
+                ?>
                 <div id="dash-accordion">
                     <h3 class="mouseover">Posts</h3>
                     <div class="accordion-section">
@@ -78,14 +102,16 @@ require('./core/global.php');
                     
                     <h3 class="mouseover">Rebuild Content</h3>
                     <div class="accordion-section">
-                        <div class="switch-wrapper">
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="rebuild-all" class="onoffswitch-checkbox" id="publicmodeswitch">
-                                <label class="onoffswitch-label" for="publicmodeswitch"></label>
+                        <form action="buildsite.php" method="post" id="build-form">
+                            <div class="switch-wrapper">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="rebuild-all" class="onoffswitch-checkbox" id="publicmodeswitch">
+                                    <label class="onoffswitch-label" for="publicmodeswitch"></label>
+                                </div>
+                                <p><strong>Rebuild All</strong> - <span class="description">Check this to purge templated files that are already in the output directory. This will force a rebuild of every article and every page, even ones that have been previously built. This can cause the operation to take longer, so use this with discretion.</span></p>
                             </div>
-                            <p><strong>Rebuild All</strong> - <span class="description">Check this to purge templated files that are already in the output directory. This will force a rebuild of every article and every page, even ones that have been previously built. This can cause the operation to take longer, so use this with discretion.</span></p>
-                        </div>
-                        <button class="submit" style="width:100%;" type="button">Rebuild Content</button>    
+                            <button class="submit" style="width:100%;" type="submit">Rebuild Content</button>    
+                        </form>
                     </div>
                 </div>
             </div>
@@ -128,3 +154,9 @@ require('./core/global.php');
         </script>
     </body>
 </html>
+
+<?php
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        session_destroy();
+    }
+?>
