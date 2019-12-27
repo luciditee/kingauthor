@@ -46,7 +46,18 @@ class DBDriver {
 
     public function getSpecificPost($id) {
         // run query
-        $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' WHERE id = ' . $id);
+        $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' WHERE id = ' . intval($id));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (count($row) == 0) return null;
+
+        // return as associative array
+        return $this->buildPost($row);
+    }
+
+    public function getSpecificPage($id) {
+        // run query
+        $stmt = $this->query('SELECT * FROM ' . KA_TBL_PAGE . ' WHERE id = ' . intval($id));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (count($row) == 0) return null;
@@ -57,7 +68,7 @@ class DBDriver {
 
     public function getLastNPosts($count) {
         // run query
-        $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' ORDER BY id DESC LIMIT ' . $count);
+        $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' ORDER BY id DESC LIMIT ' . intval($count));
 
         // return as associative array
         $ret = [];
@@ -90,10 +101,43 @@ class DBDriver {
         return $stmt;
     }
 
+    public function deleteSpecificPage($whichOne) {
+        log_append('Deleting page with ID #' . $whichOne);
+        try {
+            $stmt = $this->pdo->prepare("DELETE FROM ".KA_TBL_PAGE." WHERE id = ?");
+            if ($stmt) {
+                $stmt->execute([$whichOne]);
+            }
+            
+            // debug? maybe?
+            log_append($this->pdo->errorInfo());
+        } catch (PDOException $e) {
+            log_append($e->getMessage());
+        }
+        return $stmt;
+    }
+
     public function updatePost($post) {
         log_append('Updating post with ID #' . $post['id']);
         try {
             $stmt = $this->pdo->prepare("UPDATE ".KA_TBL_BLOGPOST." SET tags=?, author=?, content=?, title=?, date=?, slug=?, hidden=? WHERE id=?");
+            if ($stmt) {
+                $stmt->execute([$post['tags'], $post['author'], $post['content'], $post['title'], $post['date'], $post['slug'], $post['hidden'], $post['id']]);
+            }
+
+            // debug? maybe?
+            log_append($this->pdo->errorInfo());
+        } catch (PDOException $e) {
+            log_append($e->getMessage());
+        }
+
+        return $stmt;
+    }
+
+    public function updatePage($post) {
+        log_append('Updating page with ID #' . $post['id']);
+        try {
+            $stmt = $this->pdo->prepare("UPDATE ".KA_TBL_PAGE." SET tags=?, author=?, content=?, title=?, date=?, slug=?, hidden=? WHERE id=?");
             if ($stmt) {
                 $stmt->execute([$post['tags'], $post['author'], $post['content'], $post['title'], $post['date'], $post['slug'], $post['hidden'], $post['id']]);
             }
@@ -124,9 +168,39 @@ class DBDriver {
         return $stmt;
     }
 
+    public function insertPage($post) {
+        log_append('Inserting new page...');
+        try {
+            $stmt = $this->pdo->prepare("INSERT INTO ".KA_TBL_PAGE." (tags, author, content, title, date, slug, hidden) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            if ($stmt) {
+                $stmt->execute([$post['tags'], $post['author'], $post['content'], $post['title'], $post['date'], $post['slug'], $post['hidden']]);
+            }
+
+            // debug? maybe?
+            log_append($this->pdo->errorInfo());
+        } catch (PDOException $e) {
+            log_append($e->getMessage());
+        }
+
+        return $stmt;
+    }
+
     public function getAllPosts() {
         // run query
         $stmt = $this->query('SELECT * FROM ' . KA_TBL_BLOGPOST . ' ORDER BY id DESC');
+
+        // return as associative array
+        $ret = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($ret, $this->buildPost($row));
+        }
+
+        return $ret;
+    }
+
+    public function getAllPages() {
+        // run query
+        $stmt = $this->query('SELECT * FROM ' . KA_TBL_PAGE . ' ORDER BY id DESC');
 
         // return as associative array
         $ret = [];

@@ -30,14 +30,27 @@ $postData = array(
     "hidden" => ($_POST['public-mode'] == "on" ? 0 : 1)
 );
 
-if ($postData['id'] != -1) {
-    // Update a post
-    $db->updatePost($postData);
+if (isset($_GET['mode'])) {
+    // update pages in page mode
+    if ($postData['id'] != -1) {
+        // Update a page
+        $db->updatePage($postData);
+    } else {
+        // Insert new page
+        $db->insertPage($postData);
+    }
 } else {
-    // Insert new post
-    $db->insertPost($postData);
+    // update posts in default mode
+    if ($postData['id'] != -1) {
+        // Update a post
+        $db->updatePost($postData);
+    } else {
+        // Insert new post
+        $db->insertPost($postData);
+    }
 }
 
-header('Location: index.php?msg=posted');
+$append = (isset($_GET['mode']) && $_GET['mode'] == 'page') ? "page" : "";
+header('Location: index.php?msg=posted' . $append);
 
 ?>
